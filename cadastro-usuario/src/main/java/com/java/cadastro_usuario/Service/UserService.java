@@ -12,4 +12,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public void saveUser(User user){
+        if (user.getName() == null || user.getEmail() == null) {
+            throw new IllegalArgumentException("Nome e Email não podem ser nulos");
+        }else {
+            userRepository.save(user);
+        }
+    }
+
 }
