@@ -20,4 +20,16 @@ public class UserService {
         }
     }
 
+    public User getUserById(Integer id){
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário com ID " + id + " não encontrado"));
+    }
+
+    public User getUserByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        if (user == null){
+            throw new IllegalArgumentException("Usuário com email " + email + " não encontrado");
+        }else {
+            return user;
+        }
+    }
 }
