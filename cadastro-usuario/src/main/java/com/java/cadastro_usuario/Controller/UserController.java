@@ -3,6 +3,7 @@ package com.java.cadastro_usuario.Controller;
 import com.java.cadastro_usuario.Model.User;
 import com.java.cadastro_usuario.Model.UserDataSave;
 import com.java.cadastro_usuario.Service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -17,6 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/save")
+    @Transactional
     public ResponseEntity<Void> saveUser(@RequestBody UserDataSave user){
         userService.saveUser(new User(user));
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -32,12 +34,14 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Transactional
     public ResponseEntity<Void> deleteUserById(@PathVariable Integer id){
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{id}")
+    @Transactional
     public ResponseEntity<String> updateUserById(@PathVariable Integer id, @RequestBody UserDataSave userDataSave){
         userService.updateUserById(id,new User(userDataSave));
         return ResponseEntity.ok("Usuário atualizado com sucesso");
