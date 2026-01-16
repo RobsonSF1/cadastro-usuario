@@ -23,4 +23,8 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
+    public User(UserSave user) {
+        this.name = user.name();
+        this.email = user.email();
+    }
 }
