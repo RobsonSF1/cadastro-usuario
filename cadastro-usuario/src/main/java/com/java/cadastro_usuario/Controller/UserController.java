@@ -21,16 +21,26 @@ public class UserController {
         userService.saveUser(new User(user));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<User> findUserById(@PathVariable Integer id){
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    @GetMapping("/id")
+    public ResponseEntity<User> findUserById(@RequestParam Integer id){
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<User> findUserByEmail(@PathVariable String email){
-        User user = userService.getUserByEmail(email);
-        return ResponseEntity.ok(user);
+    @GetMapping("/email")
+    public ResponseEntity<User> findUserByEmail(@RequestParam String email){
+        return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Integer id){
+        userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateUserById(@PathVariable Integer id, @RequestBody UserDataSave userDataSave){
+        userService.updateUserById(id,new User(userDataSave));
+        return ResponseEntity.ok("Usuário atualizado com sucesso");
     }
 
 }
