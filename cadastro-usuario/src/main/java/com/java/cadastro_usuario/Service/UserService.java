@@ -32,4 +32,13 @@ public class UserService {
             return user;
         }
     }
+
+    public void deleteUserById(Integer id){
+        if (!userRepository.existsById(id)){
+            throw new IllegalArgumentException("Usuário com ID " + id + " não encontrado");
+        }else {
+            userRepository.deleteById(id);
+        }
+    }
+
 }
