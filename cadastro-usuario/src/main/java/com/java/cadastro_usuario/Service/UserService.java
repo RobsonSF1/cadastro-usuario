@@ -41,4 +41,13 @@ public class UserService {
         }
     }
 
+    public void updateUserById(Integer id, User user){
+        User userEntity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário com ID " + id + " não encontrado"));
+        User updatedUser = User.builder()
+                .name(user.getName() != null ? user.getName() : userEntity.getName())
+                .email(user.getEmail() != null ? user.getEmail() : userEntity.getEmail())
+                .id(userEntity.getId())
+                .build();
+        userRepository.save(updatedUser);
+    }
 }
