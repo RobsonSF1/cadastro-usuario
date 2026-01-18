@@ -15,9 +15,8 @@ public class UserService {
     public void saveUser(User user){
         if (user.getName() == null || user.getEmail() == null) {
             throw new IllegalArgumentException("Nome e Email não podem ser nulos");
-        }else {
-            userRepository.save(user);
         }
+        userRepository.save(user);
     }
 
     public User getUserById(Integer id){
@@ -28,17 +27,15 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         if (user == null){
             throw new IllegalArgumentException("Usuário com email " + email + " não encontrado");
-        }else {
-            return user;
         }
+        return user;
     }
 
     public void deleteUserById(Integer id){
         if (!userRepository.existsById(id)){
             throw new IllegalArgumentException("Usuário com ID " + id + " não encontrado");
-        }else {
-            userRepository.deleteById(id);
         }
+        userRepository.deleteById(id);
     }
 
     public void updateUserById(Integer id, User user){
